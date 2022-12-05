@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HotComponent } from './modules/rxjs/hot/hot.component';
 
 @NgModule({
   declarations: [
@@ -10,7 +9,7 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HotComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
