@@ -29,12 +29,12 @@ export class RxjsShareComponent implements OnInit {
     );
 
     const subA: Subscription = stream$.subscribe({
-      next: x => console.log('AAA ', x),
+      next: (v: number) => console.log('AAA ', v),
       complete: () => console.log('\n=== AAA completed ==='),
     });
 
     const subB: Subscription = stream$.subscribe({
-      next: x => console.log('BBB ', x),
+      next: (v: number) => console.log('BBB ', v),
       complete: () => console.log('\n=== BBB completed ==='),
     });
 

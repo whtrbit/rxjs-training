@@ -35,7 +35,7 @@ export class RxjsBufferComponent implements OnInit {
     );
 
     stream$.subscribe({
-      next: v => console.log('SUB', v),
+      next: (v: number[]) => console.log('SUB', v),
       complete: () => console.log('COMPLETE'),
     });
   }

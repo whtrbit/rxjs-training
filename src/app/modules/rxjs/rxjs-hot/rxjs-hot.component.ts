@@ -29,7 +29,7 @@ export class RxjsHotComponent implements OnInit {
   private initConnectable(): void {
     const stream$: Connectable<number> = connectable(
       interval(1000).pipe(
-        tap(v => console.log('... Observable processing', v)),
+        tap((v: number) => console.log('... Observable processing', v)),
         take(3),
         map(v => v + 1),
       ),
@@ -38,14 +38,14 @@ export class RxjsHotComponent implements OnInit {
     timer(1500).pipe(
       switchMap(() => stream$)
     ).subscribe({
-      next: v => console.log('LAZY', v),
+      next: (v: number) => console.log('LAZY', v),
       complete: () => console.log('\n=== LAZY completed ==='),
     });
 
     timer(2500).pipe(
       switchMap(() => stream$)
     ).subscribe({
-      next: v => console.log('SUPER LAZY', v),
+      next: (v: number) => console.log('SUPER LAZY', v),
       complete: () => console.log('\n=== SUPER LAZY completed ==='),
     });
 
