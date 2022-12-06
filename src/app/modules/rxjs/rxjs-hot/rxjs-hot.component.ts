@@ -1,26 +1,38 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Connectable, connectable, interval, map, Observable, share, switchMap, take, tap, timer } from 'rxjs';
+import {
+  Connectable,
+  connectable,
+  interval,
+  map,
+  Observable,
+  share,
+  Subscription,
+  switchMap,
+  take,
+  tap,
+  timer,
+} from 'rxjs';
 
 @Component({
-  selector: 'app-hot-cold',
+  selector: 'app-rxjs-hot',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './hot.component.html',
-  styleUrls: ['./hot.component.css']
+  templateUrl: './rxjs-hot.component.html',
+  styleUrls: ['./rxjs-hot.component.css']
 })
-export class HotComponent implements OnInit {
+export class RxjsHotComponent implements OnInit {
   ngOnInit(): void {
-    this.initHot();
+    // this.initConnectable();
     // this.initShare();
   }
-  private initHot(): void {
+  private initConnectable(): void {
     const stream$: Connectable<number> = connectable(
       interval(1000).pipe(
         tap(v => console.log('... Observable processing', v)),
         take(3),
         map(v => v + 1),
-      )
+      ),
     );
 
     timer(1500).pipe(
@@ -45,14 +57,14 @@ export class HotComponent implements OnInit {
       tap(v => console.log('... Observable processing', v)),
       take(2),
       share(),
-    )
+    );
 
-    const subA = stream$.subscribe({
+    const subA: Subscription = stream$.subscribe({
       next: x => console.log('AAA ', x),
       complete: () => console.log('\n=== AAA completed ==='),
     });
 
-    const subB = stream$.subscribe({
+    const subB: Subscription = stream$.subscribe({
       next: x => console.log('BBB ', x),
       complete: () => console.log('\n=== BBB completed ==='),
     });
@@ -60,8 +72,8 @@ export class HotComponent implements OnInit {
     timer(1500).subscribe({
       next: () => {
         subA.unsubscribe();
-        // subB.unsubscribe();
+        subB.unsubscribe();
       },
-    })
+    });
   }
 }
