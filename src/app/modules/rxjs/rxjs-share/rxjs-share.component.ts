@@ -23,7 +23,7 @@ export class RxjsShareComponent implements OnInit {
 
   private initShare(): void {
     const stream$: Observable<number> = interval(1000).pipe(
-      tap(v => console.log('... Observable processing', v)),
+      tap(v => console.log('... Observable processing ONLY ONCE per two subscribers:', v)),
       take(2),
       share(),
     );
@@ -40,7 +40,11 @@ export class RxjsShareComponent implements OnInit {
 
     timer(1500).subscribe({
       next: () => {
-        subA.unsubscribe();
+        // subA.unsubscribe();
+        // Note that ONLY subscriber `A` completes.
+        // In opposite to subscriber `B` it allows the stream to continue
+        // until reaching complete() after 2 seconds.
+
         subB.unsubscribe();
       },
     });

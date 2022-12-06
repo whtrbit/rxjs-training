@@ -21,6 +21,11 @@ export class RxjsHotComponent implements OnInit {
   ngOnInit(): void {
     this.initConnectable();
   }
+
+  /**
+   * Use connectable to create hot observable.
+   * Allows subscribers to lazy join the party (like live-streaming).
+   */
   private initConnectable(): void {
     const stream$: Connectable<number> = connectable(
       interval(1000).pipe(

@@ -20,6 +20,9 @@ export class RxjsBufferComponent implements OnInit {
     this.initBufferKeyEvents();
   }
 
+  /**
+   * Allows subscribers to lazy join the party keeping the history of values as an array.
+   */
   private initBuffer(): void {
     const trigger$: Observable<number> = timer(2500);
     const stream$: Observable<number[]> = new Observable((subscriber: Subscriber<number>) => {
@@ -37,6 +40,9 @@ export class RxjsBufferComponent implements OnInit {
     });
   }
 
+  /**
+   * To test it just focus on the `document` and start typing.
+   */
   private initBufferKeyEvents(): void {
     const input$: Observable<string> = fromEvent<KeyboardEvent>(document, 'keyup').pipe(
       map(e => e.key),
@@ -49,7 +55,7 @@ export class RxjsBufferComponent implements OnInit {
     );
 
     stream$.subscribe({
-      next: (v: string[]) => console.log('BUFFER KEYS', v),
+      next: (v: string[]) => console.log('BUFFERED KEYS', v),
     });
   }
 }
