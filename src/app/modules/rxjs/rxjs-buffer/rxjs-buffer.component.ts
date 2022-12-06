@@ -12,8 +12,7 @@ import {
   selector: 'app-rxjs-buffer',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './rxjs-buffer.component.html',
-  styleUrls: ['./rxjs-buffer.component.scss'],
+  template: '<h1>RxJs buffer operator</h1>\n',
 })
 export class RxjsBufferComponent implements OnInit {
   ngOnInit(): void {

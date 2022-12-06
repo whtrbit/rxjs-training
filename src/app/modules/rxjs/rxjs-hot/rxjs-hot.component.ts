@@ -5,9 +5,6 @@ import {
   connectable,
   interval,
   map,
-  Observable,
-  share,
-  Subscription,
   switchMap,
   take,
   tap,
@@ -18,13 +15,11 @@ import {
   selector: 'app-rxjs-hot',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './rxjs-hot.component.html',
-  styleUrls: ['./rxjs-hot.component.css']
+  template: '<h1>RxJs hot observable</h1>',
 })
 export class RxjsHotComponent implements OnInit {
   ngOnInit(): void {
-    // this.initConnectable();
-    // this.initShare();
+    this.initConnectable();
   }
   private initConnectable(): void {
     const stream$: Connectable<number> = connectable(
@@ -50,30 +45,5 @@ export class RxjsHotComponent implements OnInit {
     });
 
     stream$.connect();
-  }
-
-  private initShare(): void {
-    const stream$: Observable<number> = interval(1000).pipe(
-      tap(v => console.log('... Observable processing', v)),
-      take(2),
-      share(),
-    );
-
-    const subA: Subscription = stream$.subscribe({
-      next: x => console.log('AAA ', x),
-      complete: () => console.log('\n=== AAA completed ==='),
-    });
-
-    const subB: Subscription = stream$.subscribe({
-      next: x => console.log('BBB ', x),
-      complete: () => console.log('\n=== BBB completed ==='),
-    });
-
-    timer(1500).subscribe({
-      next: () => {
-        subA.unsubscribe();
-        subB.unsubscribe();
-      },
-    });
   }
 }
