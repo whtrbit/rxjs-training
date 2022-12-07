@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  buffer, debounceTime,
-  fromEvent, map,
+  buffer,
+  debounceTime,
+  fromEvent,
+  map,
   Observable,
   Subscriber,
   timer,

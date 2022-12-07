@@ -31,19 +31,19 @@ export class RxjsHotComponent implements OnInit {
       interval(1000).pipe(
         tap((v: number) => console.log('... Observable processing', v)),
         take(3),
-        map(v => v + 1),
+        map((v: number) => v + 1),
       ),
     );
 
     timer(1500).pipe(
-      switchMap(() => stream$)
+      switchMap(() => stream$),
     ).subscribe({
       next: (v: number) => console.log('LAZY', v),
       complete: () => console.log('\n=== LAZY completed ==='),
     });
 
     timer(2500).pipe(
-      switchMap(() => stream$)
+      switchMap(() => stream$),
     ).subscribe({
       next: (v: number) => console.log('SUPER LAZY', v),
       complete: () => console.log('\n=== SUPER LAZY completed ==='),
