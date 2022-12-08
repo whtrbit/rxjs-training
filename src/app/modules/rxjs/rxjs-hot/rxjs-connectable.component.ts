@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   Connectable,
   connectable,
@@ -10,14 +9,19 @@ import {
   tap,
   timer,
 } from 'rxjs';
+import { RxjsConnectableService } from './rxjs-connectable.service';
 
 @Component({
   selector: 'app-rxjs-hot',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: '<h1>RxJs hot observable</h1>',
 })
-export class RxjsHotComponent implements OnInit {
+export class RxjsConnectableComponent implements OnInit {
+  constructor(
+    private rxJsHotService: RxjsConnectableService,
+  ) {}
+
   ngOnInit(): void {
     this.initConnectable();
   }
@@ -27,13 +31,7 @@ export class RxjsHotComponent implements OnInit {
    * Allows subscribers to lazy join the party (like live-streaming).
    */
   private initConnectable(): void {
-    const stream$: Connectable<number> = connectable(
-      interval(1000).pipe(
-        tap((v: number) => console.log('... Observable processing', v)),
-        take(3),
-        map((v: number) => v + 1),
-      ),
-    );
+    const stream$: Connectable<number> = this.rxJsHotService.getHotObservable$();
 
     timer(1500).pipe(
       switchMap(() => stream$),

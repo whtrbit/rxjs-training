@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   buffer,
   debounceTime,
@@ -13,7 +12,7 @@ import {
 @Component({
   selector: 'app-rxjs-buffer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: '<h1>RxJs buffer operator</h1>\n',
 })
 export class RxjsBufferComponent implements OnInit {
@@ -24,6 +23,7 @@ export class RxjsBufferComponent implements OnInit {
 
   /**
    * Allows subscribers to lazy join the party keeping the history of values as an array.
+   * In opposite to toArray operator, the stream does not have to complete to emit values.
    */
   private initBuffer(): void {
     const trigger$: Observable<number> = timer(2500);

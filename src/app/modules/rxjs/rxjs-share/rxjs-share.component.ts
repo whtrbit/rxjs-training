@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   interval,
   Observable,
@@ -13,7 +12,7 @@ import {
 @Component({
   selector: 'app-rxjs-share',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: '<h1>RxJs share operator</h1>',
 })
 export class RxjsShareComponent implements OnInit {

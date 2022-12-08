@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { map, Observable, of, retry } from 'rxjs';
+import { onErrorResumeNext } from 'rxjs/internal/operators/onErrorResumeNext';
 @Component({
   selector: 'app-rxjs-retry',
   standalone: true,
-  imports: [CommonModule],
+  imports: [],
   template: `
     <h1>RxJs retry operator</h1>
   `,
@@ -18,7 +18,7 @@ export class RxjsRetryComponent implements OnInit {
     const stream$: Observable<number> = of(1, 2, 3).pipe(
       map((v: number) => {
         if (v > 2) {
-          throw new Error('error');
+          throw new Error('Value should never be greater than 2');
         }
 
         return v;
@@ -28,6 +28,8 @@ export class RxjsRetryComponent implements OnInit {
         delay: 1000,
         resetOnSuccess: false,
       }),
+      // Fallback for error
+      // onErrorResumeNext(of(9)),
     );
 
     stream$.subscribe({
